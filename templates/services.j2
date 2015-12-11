@@ -1,0 +1,9 @@
+- name: {{ dc_code }}
+  type: {{ dc_type }}
+  cacti:
+{% for i in mysql_cacti.stdout_lines %}
+    - {{ i }}
+{% endfor %}
+
+{# Building a valid YAML you need to put the for and if clauses at the beginning
+of the line with no white space #}

@@ -1,0 +1,8 @@
+#ansible_ssh_host allows you to name the device if you don't have DNS
+[site]
+database ansible_ssh_host=192.168.100.20 ansible_ssh_user=admin
+
+#This is an awesome feature that allows you to assign variables to a site easily
+[site:vars]
+dc_code=site
+dc_type=xyz

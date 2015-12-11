@@ -1,0 +1,13 @@
+- hosts: passwd
+  gather_facts: no
+################# CACTI
+  tasks:
+     - name: Pull Cacti IPs and Register
+       shell: mysql -u root -p"{{ mysql_root_pass }}" -e "select ipaddr from hwsys.ipinv where comment like '%cacti%'" -B | while read; do sed 's/\t/,/g'; done
+       register: mysql_cacti
+
+- hosts: all
+  connection: local
+  gather_facts: no
+  tasks:
+     - template: src=templates/service.j2 dest=templates/tmp/{{ inventory_hostname }}.yaml

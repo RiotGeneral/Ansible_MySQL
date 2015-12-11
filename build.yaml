@@ -1,0 +1,11 @@
+# I did it this way so you could have multiple different fetch files and one assemble
+---
+- include: fetch_inv_data.yaml
+
+- hosts: all
+  connection: local
+  tasks:
+    - assemble: src=templates/tmp/ dest=maybe.yaml
+      #ignore_hidden: True #For Ansible 2.0
+    - lineinfile: dest=maybe.yaml state=absent regexp="^\s*$"
+    - lineinfile: dest=maybe.yaml insertbefore=BOF line='sites:'
